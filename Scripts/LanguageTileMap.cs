@@ -1,6 +1,13 @@
 using Godot;
 using System;
 
+/*
+ * ToDo:
+ * Word wrap
+ * 
+ * ToDo:
+ * Line break at linebreak character
+ */
 public partial class LanguageTileMap : TileMap
 {
     [Export]

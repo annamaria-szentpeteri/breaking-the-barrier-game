@@ -13,31 +13,27 @@ using System.Collections.Generic;
  */
 public static class AlphabetMapper
 {
-    public const string LettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.,-:;!?";
-    public const int xMaxAtlas = 20;
-    public const int yMaxAtlas = 20;
+    private const string _lettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.,-:;!?";
+    private const int _xMaxAtlas = 20;
+    private const int _yMaxAtlas = 20;
 
-    private static Dictionary<char, Vector2I> _mapping = new Dictionary<char, Vector2I>(LettersAndSpecialChars.Length);
+    private static Dictionary<char, Vector2I> _mapping = new Dictionary<char, Vector2I>(_lettersAndSpecialChars.Length);
 
-    static AlphabetMapper()
+    public static void GenerateMapping(ulong seed)
     {
+        _mapping.Clear();
+
         var r = new RandomNumberGenerator();
+        r.Seed = seed;
 
-        /* 
-         * ToDo:
-         * Seed will be provided by user.
-         *   r.Seed = userInput;
-         *   
-         */
+        var duplicationChecker = new HashSet<Vector2I>(_lettersAndSpecialChars.Length);
 
-        var duplicationChecker = new HashSet<Vector2I>(LettersAndSpecialChars.Length);
-
-        foreach (var i in LettersAndSpecialChars)
+        foreach (var i in _lettersAndSpecialChars)
         {
             Vector2I vector;
             do
             {
-                vector = new Vector2I(r.RandiRange(0, xMaxAtlas - 1), r.RandiRange(0, yMaxAtlas - 1));
+                vector = new Vector2I(r.RandiRange(0, _xMaxAtlas - 1), r.RandiRange(0, _yMaxAtlas - 1));
             }
             while (duplicationChecker.Contains(vector));
 
