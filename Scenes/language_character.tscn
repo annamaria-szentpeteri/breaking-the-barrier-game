@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbjlxpvwouw3u"]
+
+[ext_resource type="Texture2D" uid="uid://ddowmvpw17s5q" path="res://Art/Language/lang_1080x1080_with_20x20_sprites_7x7_6px_1_colors.png" id="1_xi3ck"]
+
+[node name="LanguageCharacter" type="Sprite2D"]
+texture = ExtResource("1_xi3ck")
+hframes = 20
+vframes = 20
