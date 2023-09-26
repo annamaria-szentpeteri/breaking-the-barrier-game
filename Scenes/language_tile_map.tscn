@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://biysasogumwv2"]
+
+[ext_resource type="TileSet" uid="uid://13bdn45g0s1q" path="res://Art/Language/language_tile_map.tres" id="1_4sxvd"]
+[ext_resource type="Script" path="res://Scripts/LanguageTileMap.cs" id="2_vmaqq"]
+
+[node name="LanguageTileMap" type="TileMap"]
+tile_set = ExtResource("1_4sxvd")
+cell_quadrant_size = 54
+format = 2
+script = ExtResource("2_vmaqq")
