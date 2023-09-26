@@ -12,4 +12,3 @@ LanguageTileMap = NodePath("LanguageTileMap")
 
 [node name="LanguageTileMap" parent="." instance=ExtResource("2_hg740")]
 CharacterPerLine = 40
-TextToEncode = null

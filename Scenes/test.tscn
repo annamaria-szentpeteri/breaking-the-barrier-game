@@ -1,36 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://rrr3ai2kuib5"]
+[gd_scene load_steps=6 format=3 uid="uid://rrr3ai2kuib5"]
 
 [ext_resource type="Texture2D" uid="uid://dufhj5rujg4ge" path="res://icon.svg" id="1_q0p6y"]
 [ext_resource type="PackedScene" uid="uid://bbjlxpvwouw3u" path="res://Scenes/language_character.tscn" id="2_4nr41"]
 [ext_resource type="Script" path="res://Scripts/LanguageCharacter.cs" id="3_fagjj"]
 [ext_resource type="PackedScene" uid="uid://bi28oe0kayu02" path="res://Scenes/text_box.tscn" id="4_rthnu"]
+[ext_resource type="Script" path="res://Scripts/GenerateMappingButton.cs" id="5_js5tu"]
 
 [node name="TestScene" type="Node2D"]
 
-[node name="text_test" type="RichTextLabel" parent="."]
-offset_left = 100.0
-offset_top = 50.0
-offset_right = 387.0
-offset_bottom = 134.0
+[node name="rtlSceneName" type="RichTextLabel" parent="."]
+offset_right = 287.0
+offset_bottom = 84.0
 theme_override_font_sizes/normal_font_size = 48
-text = "Test"
+text = "Test Scene"
 scroll_active = false
 shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(1000, 100)
-texture = ExtResource("1_q0p6y")
-
-[node name="Language_Character" parent="." instance=ExtResource("2_4nr41")]
+[node name="random_bullshit" parent="." instance=ExtResource("2_4nr41")]
 position = Vector2(500, 250)
 script = ExtResource("3_fagjj")
 
-[node name="TextBox" parent="." node_paths=PackedStringArray("TextToEncode") instance=ExtResource("4_rthnu")]
-TextToEncode = NodePath("../TextEdit")
+[node name="tbEncodedText" parent="." node_paths=PackedStringArray("TextToEncode") instance=ExtResource("4_rthnu")]
+offset = Vector2(0, 300)
+transform = Transform2D(0.5, 0, 0, 0.5, 0, 300)
+TextToEncode = NodePath("../teInputText")
 
-[node name="TextEdit" type="TextEdit" parent="."]
-offset_left = 249.0
-offset_right = 801.0
-offset_bottom = 130.0
+[node name="teInputText" type="TextEdit" parent="."]
+offset_left = 277.0
+offset_top = 7.0
+offset_right = 829.0
+offset_bottom = 211.0
 text = "Test text"
+wrap_mode = 1
+
+[node name="btnGenerateMapping" type="Button" parent="." node_paths=PackedStringArray("TextBox")]
+offset_left = 865.0
+offset_top = 33.0
+offset_right = 1050.0
+offset_bottom = 238.0
+text = "Generate
+mapping"
+icon = ExtResource("1_q0p6y")
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("5_js5tu")
+TextBox = NodePath("../tbEncodedText")
