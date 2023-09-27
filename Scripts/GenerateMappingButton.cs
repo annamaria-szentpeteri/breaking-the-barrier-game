@@ -6,6 +6,9 @@ public partial class GenerateMappingButton : Button
     [Export]
     public TextBox TextBox { get; set; }
 
+    [Export]
+    public TextEdit SeedInput { get; set; }
+
     private bool _isGenerating = false;
 
     // Called when the node enters the scene tree for the first time.
@@ -24,12 +27,7 @@ public partial class GenerateMappingButton : Button
         if (_isGenerating)
             return;
 
-        /* 
-         * ToDo:
-         * Seed will be provided by user.
-         *   
-         */
-        ulong seed = new RandomNumberGenerator().Randi();
+        ulong seed = string.IsNullOrWhiteSpace(SeedInput.Text) ? new RandomNumberGenerator().Randi() : SeedInput.Text.Hash();
 
         try
         {
