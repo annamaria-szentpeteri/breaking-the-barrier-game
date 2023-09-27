@@ -34,11 +34,11 @@ offset_bottom = 211.0
 text = "Test text"
 wrap_mode = 1
 
-[node name="btnGenerateMapping" type="Button" parent="." node_paths=PackedStringArray("TextBox")]
-offset_left = 865.0
-offset_top = 33.0
-offset_right = 1050.0
-offset_bottom = 238.0
+[node name="btnGenerateMapping" type="Button" parent="." node_paths=PackedStringArray("TextBox", "SeedInput")]
+offset_left = 872.0
+offset_top = 9.0
+offset_right = 1057.0
+offset_bottom = 214.0
 text = "Generate
 mapping"
 icon = ExtResource("1_q0p6y")
@@ -46,3 +46,13 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("5_js5tu")
 TextBox = NodePath("../tbEncodedText")
+SeedInput = NodePath("../TextEdit")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = 890.0
+offset_top = 223.0
+offset_right = 1052.0
+offset_bottom = 283.0
+placeholder_text = "Give a seed
+expression"
+wrap_mode = 1
