@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://13bdn45g0s1q"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://13bdn45g0s1q"]
 
 [ext_resource type="Texture2D" uid="uid://ddowmvpw17s5q" path="res://Art/Language/lang_1080x1080_with_20x20_sprites_7x7_6px_1_colors.png" id="1_sm4m0"]
 [ext_resource type="Texture2D" uid="uid://cgwqo8roymod7" path="res://Art/Language/lang_1080x1080_with_20x20_sprites_7x7_6px_white.png" id="1_ykepe"]
+[ext_resource type="Texture2D" uid="uid://dq3w12lpgviha" path="res://Art/Language/orig_lang_324x324_with_6x6_sprites_7x7_6px_1_colors.png" id="3_ppm0h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h8qrs"]
 resource_name = "ABC coloured"
@@ -813,8 +814,48 @@ texture_region_size = Vector2i(54, 54)
 18:19/0 = 0
 19:19/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1unee"]
+texture = ExtResource("3_ppm0h")
+texture_region_size = Vector2i(54, 54)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+
 [resource]
 tile_size = Vector2i(54, 54)
 uv_clipping = true
 sources/1 = SubResource("TileSetAtlasSource_jkya0")
 sources/0 = SubResource("TileSetAtlasSource_h8qrs")
+sources/99 = SubResource("TileSetAtlasSource_1unee")

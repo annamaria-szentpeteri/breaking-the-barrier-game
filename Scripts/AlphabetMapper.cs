@@ -13,7 +13,7 @@ using System.Collections.Generic;
  */
 public static class AlphabetMapper
 {
-    private const string _lettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.,-:;!?";
+    private const string _lettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.:;,?!-()";
     private const int _xMaxAtlas = 20;
     private const int _yMaxAtlas = 20;
 
