@@ -34,7 +34,16 @@ offset_left = 277.0
 offset_top = 7.0
 offset_right = 829.0
 offset_bottom = 211.0
-text = "Test text"
+theme_override_font_sizes/font_size = 12
+text = "Test text: abcdefghijklmnopqrstuvwxyz.:;,?!-()
+
+A rose by any other name would smell as sweet.
+All that glitters is not gold.
+All the world’s a stage, and all the men and women merely players.
+Ask not what your country can do for you; ask what you can do for your country.
+Ask, and it shall be given you; seek, and you shall find.
+Eighty percent of success is showing up.
+Elementary, my dear Watson."
 wrap_mode = 1
 
 [node name="btnGenerateMapping" type="Button" parent="." node_paths=PackedStringArray("TextBox", "SeedInput")]

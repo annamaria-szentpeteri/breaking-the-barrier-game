@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class btnLearn : Button
 {
@@ -11,7 +10,6 @@ public partial class btnLearn : Button
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        OnPressed();
     }
 
     public override void _Pressed()
@@ -27,13 +25,7 @@ public partial class btnLearn : Button
         try
         {
             _isLearning = true;
-
-            // TODO MAKE THIS RANDOM
-            char randomCharacter = 'a';
-            // TODO MAKE THIS DYNAMIC
-            AtlasVector atlasVector = new(AlphabetMapper.OriginalAtlasIndex, new Vector2I(0, 0));
-
-            AlphabetMapper.Learn(randomCharacter, atlasVector);
+            AlphabetMapper.LearnRandomCharacter();
             TextBox.TextChanged();
         }
         finally
