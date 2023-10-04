@@ -11,15 +11,15 @@ using System.Collections.Generic;
  * ToDo:
  * Add learnt character to the algorithm.
  */
-public static class AlphabetMapper
+public class AlphabetManager : IAlphabetManager
 {
     private const string _lettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.:;,?!-()";
     private const int _xMaxAtlas = 20;
     private const int _yMaxAtlas = 20;
 
-    private static Dictionary<char, Vector2I> _mapping = new Dictionary<char, Vector2I>(_lettersAndSpecialChars.Length);
+    private Dictionary<char, Vector2I> _mapping = new Dictionary<char, Vector2I>(_lettersAndSpecialChars.Length);
 
-    public static void GenerateMapping(ulong seed)
+    public void GenerateMapping(ulong seed)
     {
         _mapping.Clear();
 
@@ -42,7 +42,7 @@ public static class AlphabetMapper
         }
     }
 
-    public static Vector2I? GetVector(char c)
+    public Vector2I? GetVector(char c)
     {
         var lowerChar = char.ToLowerInvariant(c);
         return _mapping.ContainsKey(lowerChar) ? _mapping[lowerChar] : null;
