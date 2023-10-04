@@ -26,10 +26,12 @@ public partial class LanguageTileMap : TileMap
             TextChanged(_textToCode, value);
             _textToCode = value; 
 		}
-	}
+    }
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    private readonly IAlphabetManager _alphabetMapper = DIContainer.GetService<IAlphabetManager>();
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
 		TextChanged(null, _textToCode);
 	}
@@ -66,7 +68,7 @@ public partial class LanguageTileMap : TileMap
 
         for (int i = 0; i < text.Length; i++)
         {
-            var vector = AlphabetMapper.GetVector(text[i]);
+            var vector = _alphabetMapper.GetVector(text[i]);
 
             if (vector == null)
             {

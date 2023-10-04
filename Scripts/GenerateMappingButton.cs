@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class GenerateMappingButton : Button
 {
@@ -10,6 +9,8 @@ public partial class GenerateMappingButton : Button
     public TextEdit SeedInput { get; set; }
 
     private bool _isGenerating = false;
+
+    private readonly IAlphabetManager _alphabetMapper = DIContainer.GetService<IAlphabetManager>();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -32,7 +33,7 @@ public partial class GenerateMappingButton : Button
         try
         {
             _isGenerating = true;
-            AlphabetMapper.GenerateMapping(seed);
+            _alphabetMapper.GenerateMapping(seed);
             TextBox.TextChanged();
         }
         finally
