@@ -2,16 +2,6 @@
 using System;
 using System.Collections.Generic;
 
-/*
- * ToDo:
- * This wont be static in the future and will be instanciated at starting a New Game.
- * 
- * ToDo:
- * Modify the atlas to include fixed special characters?
- * 
- * ToDo:
- * Add learnt character to the algorithm.
- */
 public class AlphabetManager : IAlphabetManager
 {
     public const string LettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.:;,?!-()";
@@ -39,28 +29,39 @@ public class AlphabetManager : IAlphabetManager
 
         foreach (var i in LettersAndSpecialChars)
         {
-            Vector2I vector = GetRandomUnique((v) => duplicationChecker.Contains(v), () => new Vector2I(rand.RandiRange(0, AlienAtlasDimension - 1), rand.RandiRange(0, AlienAtlasDimension - 1)));
+            Vector2I vector = GetRandomUnique(
+                () => new Vector2I(rand.RandiRange(0, AlienAtlasDimension - 1), 
+                rand.RandiRange(0, AlienAtlasDimension - 1)), (v) => duplicationChecker.Contains(v));
 
             duplicationChecker.Add(vector);
             _alienMapping.Add(i, new AtlasVector(AlienAtlasIndex, vector));
         }
     }
 
-    public static void LearnRandomCharacter()
+    public void LearnRandomCharacter()
     {
-        // BUG: If everything has been learnt, infinite loop occours
+        if (_learningProgress.Count == LettersAndSpecialChars.Length)
+        {
+            GD.Print($"No more characters to learn. Exiting {nameof(LearnRandomCharacter)} method.");
+            return;
+        }
+
         var rand = new RandomNumberGenerator();
-        var index = GetRandomUnique((i) => _learningProgress.ContainsKey(LettersAndSpecialChars[i]), () => rand.RandiRange(0, LettersAndSpecialChars.Length - 1));
+
+        var index = GetRandomUnique(
+            () => rand.RandiRange(0, LettersAndSpecialChars.Length - 1), 
+            (i) => _learningProgress.ContainsKey(LettersAndSpecialChars[i]));
+
         var character = LettersAndSpecialChars[index];
         var atlasVector = new AtlasVector(OriginalAtlasIndex, new Vector2I(index % OriginalAtlasDimension, index / OriginalAtlasDimension));
 
-        Learn(character, atlasVector);
+        LearnCharacter(character, atlasVector);
 
         GD.Print($"Random: {index} - {character}");
         GD.Print($"{atlasVector.Id}->({atlasVector.Vector.X},{atlasVector.Vector.Y})");
     }
 
-    private void Learn(char character, AtlasVector atlasVector)
+    public void LearnCharacter(char character, AtlasVector atlasVector)
     {
         if (atlasVector == null)
         {
@@ -78,7 +79,7 @@ public class AlphabetManager : IAlphabetManager
         }
     }
 
-    public static AtlasVector GetCharacterVector(char c)
+    public AtlasVector GetCharacterVector(char c)
     {
         var lowerChar = char.ToLowerInvariant(c);
 
@@ -91,14 +92,14 @@ public class AlphabetManager : IAlphabetManager
         return null;
     }
 
-    private T GetRandomUnique<T>(Func<T, bool> condition, Func<T> func)
+    private T GetRandomUnique<T>(Func<T> createInstance, Func<T, bool> condition)
     {
-        T thing;
+        T instance;
         do
         {
-            thing = func();
+            instance = createInstance();
         }
-        while (condition(thing));
-        return thing;
+        while (condition(instance));
+        return instance;
     }
 }

@@ -7,6 +7,8 @@ public partial class btnLearn : Button
 
     private bool _isLearning = false;
 
+    private readonly IAlphabetManager _alphabetMapper = DIContainer.GetService<IAlphabetManager>();
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -25,7 +27,7 @@ public partial class btnLearn : Button
         try
         {
             _isLearning = true;
-            AlphabetMapper.LearnRandomCharacter();
+            _alphabetMapper.LearnRandomCharacter();
             TextBox.TextChanged();
         }
         finally

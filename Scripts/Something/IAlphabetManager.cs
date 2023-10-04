@@ -3,5 +3,7 @@
 public interface IAlphabetManager
 {
     void GenerateMapping(ulong seed);
-    Vector2I? GetVector(char c);
+    AtlasVector GetCharacterVector(char c);
+    void LearnRandomCharacter();
+    void LearnCharacter(char character, AtlasVector atlasVector);
 }
