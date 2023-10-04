@@ -1,9 +1,8 @@
 using Godot;
-using System;
 
-public partial class test : Node2D
+public partial class InitScript : Node2D
 {
-    public test()
+    public InitScript()
     {
         var dIContainer = new DIContainer();
     }
