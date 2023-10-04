@@ -1,3 +1,5 @@
 # Godot 4+ specific ignores
 .godot/
 .vs/
+Art/Music/Snow Rose - original/
+Art/*.*
