@@ -1,50 +1,105 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 
-/*
- * ToDo:
- * This wont be static in the future and will be instanciated at starting a New Game.
- * 
- * ToDo:
- * Modify the atlas to include fixed special characters?
- * 
- * ToDo:
- * Add learnt character to the algorithm.
- */
 public class AlphabetManager : IAlphabetManager
 {
-    private const string _lettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.:;,?!-()";
-    private const int _xMaxAtlas = 20;
-    private const int _yMaxAtlas = 20;
+    public const string LettersAndSpecialChars = "abcdefghijklmnopqrstuvwxyz.:;,?!-()";
 
-    private Dictionary<char, Vector2I> _mapping = new Dictionary<char, Vector2I>(_lettersAndSpecialChars.Length);
+    public const int AlienAtlasIndex = 0;
+    public const int AlienAtlasDimension = 20;
+    
+    public const int OriginalAtlasIndex = 99;
+    public const int OriginalAtlasDimension = 6;
+
+    private readonly Dictionary<char, AtlasVector> _alienMapping = new(LettersAndSpecialChars.Length);
+    private readonly Dictionary<char, AtlasVector> _learningProgress = new(LettersAndSpecialChars.Length);
 
     public void GenerateMapping(ulong seed)
     {
-        _mapping.Clear();
+        _alienMapping.Clear();
+        _learningProgress.Clear();
 
-        var r = new RandomNumberGenerator();
-        r.Seed = seed;
-
-        var duplicationChecker = new HashSet<Vector2I>(_lettersAndSpecialChars.Length);
-
-        foreach (var i in _lettersAndSpecialChars)
+        var rand = new RandomNumberGenerator
         {
-            Vector2I vector;
-            do
-            {
-                vector = new Vector2I(r.RandiRange(0, _xMaxAtlas - 1), r.RandiRange(0, _yMaxAtlas - 1));
-            }
-            while (duplicationChecker.Contains(vector));
+            Seed = seed
+        };
+
+        var duplicationChecker = new HashSet<Vector2I>(LettersAndSpecialChars.Length);
+
+        foreach (var i in LettersAndSpecialChars)
+        {
+            Vector2I vector = GetRandomUnique(
+                () => new Vector2I(rand.RandiRange(0, AlienAtlasDimension - 1), 
+                rand.RandiRange(0, AlienAtlasDimension - 1)), (v) => duplicationChecker.Contains(v));
 
             duplicationChecker.Add(vector);
-            _mapping.Add(i, vector);
+            _alienMapping.Add(i, new AtlasVector(AlienAtlasIndex, vector));
         }
     }
 
-    public Vector2I? GetVector(char c)
+    public void LearnRandomCharacter()
+    {
+        if (_learningProgress.Count == LettersAndSpecialChars.Length)
+        {
+            GD.Print($"No more characters to learn. Exiting {nameof(LearnRandomCharacter)} method.");
+            return;
+        }
+
+        var rand = new RandomNumberGenerator();
+
+        var index = GetRandomUnique(
+            () => rand.RandiRange(0, LettersAndSpecialChars.Length - 1), 
+            (i) => _learningProgress.ContainsKey(LettersAndSpecialChars[i]));
+
+        var character = LettersAndSpecialChars[index];
+        var atlasVector = new AtlasVector(OriginalAtlasIndex, new Vector2I(index % OriginalAtlasDimension, index / OriginalAtlasDimension));
+
+        LearnCharacter(character, atlasVector);
+
+        GD.Print($"Random: {index} - {character}");
+        GD.Print($"{atlasVector.Id}->({atlasVector.Vector.X},{atlasVector.Vector.Y})");
+    }
+
+    public void LearnCharacter(char character, AtlasVector atlasVector)
+    {
+        if (atlasVector == null)
+        {
+            _learningProgress.Remove(character);
+            return;
+        }
+
+        if (_learningProgress.ContainsKey(character))
+        {
+            _learningProgress[character] = atlasVector;
+        }
+        else
+        {
+            _learningProgress.Add(character, atlasVector);
+        }
+    }
+
+    public AtlasVector GetCharacterVector(char c)
     {
         var lowerChar = char.ToLowerInvariant(c);
-        return _mapping.ContainsKey(lowerChar) ? _mapping[lowerChar] : null;
+
+        if (_learningProgress.ContainsKey(lowerChar))
+            return _learningProgress[lowerChar];
+
+        if (_alienMapping.ContainsKey(lowerChar))
+            return _alienMapping[lowerChar];
+        
+        return null;
+    }
+
+    private T GetRandomUnique<T>(Func<T> createInstance, Func<T, bool> condition)
+    {
+        T instance;
+        do
+        {
+            instance = createInstance();
+        }
+        while (condition(instance));
+        return instance;
     }
 }

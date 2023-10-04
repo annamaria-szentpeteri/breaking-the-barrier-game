@@ -68,15 +68,15 @@ public partial class LanguageTileMap : TileMap
 
         for (int i = 0; i < text.Length; i++)
         {
-            var vector = _alphabetMapper.GetVector(text[i]);
+            var atlasVector = _alphabetMapper.GetCharacterVector(text[i]);
 
-            if (vector == null)
+            if (atlasVector == null)
             {
                 CleanCell(i);
             }
             else
             {
-                this.SetCell(0, GetCellVector(i), 0, vector);
+                this.SetCell(0, GetCellVector(i), atlasVector.Id, atlasVector.Vector);
             }
         }
     }

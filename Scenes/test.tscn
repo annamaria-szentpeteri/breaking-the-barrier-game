@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://rrr3ai2kuib5"]
+[gd_scene load_steps=8 format=3 uid="uid://rrr3ai2kuib5"]
 
-[ext_resource type="Script" path="res://Scenes/test.cs" id="1_3gm8s"]
+[ext_resource type="Script" path="res://Scripts/InitScript.cs" id="1_0yaqn"]
 [ext_resource type="Texture2D" uid="uid://dufhj5rujg4ge" path="res://icon.svg" id="1_q0p6y"]
 [ext_resource type="PackedScene" uid="uid://bbjlxpvwouw3u" path="res://Scenes/language_character.tscn" id="2_4nr41"]
 [ext_resource type="Script" path="res://Scripts/LanguageCharacter.cs" id="3_fagjj"]
 [ext_resource type="PackedScene" uid="uid://bi28oe0kayu02" path="res://Scenes/text_box.tscn" id="4_rthnu"]
 [ext_resource type="Script" path="res://Scripts/GenerateMappingButton.cs" id="5_js5tu"]
+[ext_resource type="Script" path="res://Scripts/btnLearn.cs" id="6_tsk14"]
 
 [node name="TestScene" type="Node2D"]
-script = ExtResource("1_3gm8s")
+script = ExtResource("1_0yaqn")
 
 [node name="rtlSceneName" type="RichTextLabel" parent="."]
 offset_right = 287.0
@@ -33,7 +34,16 @@ offset_left = 277.0
 offset_top = 7.0
 offset_right = 829.0
 offset_bottom = 211.0
-text = "Test text"
+theme_override_font_sizes/font_size = 12
+text = "Test text: abcdefghijklmnopqrstuvwxyz.:;,?!-()
+
+A rose by any other name would smell as sweet.
+All that glitters is not gold.
+All the world’s a stage, and all the men and women merely players.
+Ask not what your country can do for you; ask what you can do for your country.
+Ask, and it shall be given you; seek, and you shall find.
+Eighty percent of success is showing up.
+Elementary, my dear Watson."
 wrap_mode = 1
 
 [node name="btnGenerateMapping" type="Button" parent="." node_paths=PackedStringArray("TextBox", "SeedInput")]
@@ -49,6 +59,17 @@ vertical_icon_alignment = 0
 script = ExtResource("5_js5tu")
 TextBox = NodePath("../tbEncodedText")
 SeedInput = NodePath("../TextEdit")
+
+[node name="btnLearn" type="Button" parent="." node_paths=PackedStringArray("TextBox")]
+offset_left = 686.0
+offset_top = 219.0
+offset_right = 871.0
+offset_bottom = 289.0
+text = "Learn character"
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("6_tsk14")
+TextBox = NodePath("../tbEncodedText")
 
 [node name="TextEdit" type="TextEdit" parent="."]
 offset_left = 890.0
